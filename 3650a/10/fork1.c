@@ -15,7 +15,7 @@ main(int _ac, char* _av[])
     if ((cpid = fork())) {
         int pid1 = getpid();
         int par1 = getppid();
-        printf("Hi, I'm %d, child of %d (cpid = %d)\n", pid1, par1, cpid);
+        printf("PARENT PROCESSHi, I'm %d, child of %d (cpid = %d)\n", pid1, par1, cpid);
 
         int st;
         wait(&st);
@@ -23,7 +23,7 @@ main(int _ac, char* _av[])
     else {
         int pid2 = getpid();
         int par2 = getppid();
-        printf("Hi, I'm %d, child of %d (cpid = %d)\n", pid2, par2, cpid);
+        printf("CHILD PROCESSHi, I'm %d, child of %d (cpid = %d)\n", pid2, par2, cpid);
     }
 
     printf("All done\n");

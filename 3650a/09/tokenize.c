@@ -25,10 +25,24 @@ read_number(const char* text, long ii)
     return num;
 }
 
+char*
+read_command(const char* line, long ii)
+{
+    int nn = 0;
+    while (isalpha(line[ii + nn])) {
+        ++nn;
+    }
+
+    char* comnd = malloc(nn + 1);
+    memcpy(comnd, line + ii, nn);
+    comnd[nn] = 0;
+    return comnd;
+}
+
 list*
 tokenize(const char* text)
 {
-    list* xs = 0;
+    list* xs;
 
     long nn = strlen(text);
     long ii = 0;
@@ -38,6 +52,13 @@ tokenize(const char* text)
             continue;
         }
 
+        if (isalpha(text[ii])) {
+            char* comnd = read_command(text, ii);
+            xs = cons(comnd, xs);
+            ii += strlen(comnd);
+            free(comnd);
+            continue;
+        }
         if (isdigit(text[ii])) {
             char* num = read_number(text, ii);
             xs = cons(num, xs);
@@ -46,8 +67,7 @@ tokenize(const char* text)
             continue;
         }
 
-        // Else, it must be an operator
-        char op[] = "x";
+        char op[] = "";
         op[0] = text[ii];
         xs = cons(op, xs);
         ++ii;

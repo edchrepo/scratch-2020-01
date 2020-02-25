@@ -3,8 +3,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "list.h"
-
 list*
 cons(char* xx, list* xs)
 {
